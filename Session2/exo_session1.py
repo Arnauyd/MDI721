@@ -12,7 +12,9 @@ import unittest
 # that is n copies of the original string.
 # Example: string_times("hey", 3) should return "heyheyhey"
 def string_times(string, n):
-    return
+    l=[]
+    l=n*string
+    return l
 
 
 # Write a function which returns True if a year is a leap year.
@@ -21,42 +23,72 @@ def string_times(string, n):
 # or if:
 # - it is divisible by 400
 def is_leap_year(year):
-    return
+    res=bool()
+    if (year%4==0 and year%100!=0) or year%400==0:
+        res=True
+    else:
+        res=False
+    return res
 
 
 # Given a list of ints, return True if one of the first 4 elements
 # in the array is a 9. The list length may be less than 4.
 def array_front9(nums):
-    return
+    res=False
+    if 9 in nums[:4]:
+        res=True
+    return res 
 
 
 # Given a list of ints, return the list of their square root.
 def list_sqrt(nums):
-    return
+    l=[nums[i]**0.5 for i in range(len(nums))]
+    return l
 
 
 # Write a function which return a dict containing the number of time each letter
 # is present in the given text.
 def occurences(text):
-    return
+    l=list(text)
+    res={}
+    for letter in l:
+        if letter not in res:
+            res[letter]=1
+        else:
+            res[letter]+=1
+    return res
 
 
 # Write a function that maps a list of words into a list of
 # integers representing the lengths of the corresponding words.
 def length_words(words):
-    return
+    leng=[]
+    leng=map(lambda x:len(x),words)
+    return list(leng)
 
 
 # Write a function that takes a number and returns a list of its digits.
 def number_to_digits(number):
-    return
+    res=list(map(lambda x:int(x),list(str(2019))))
+    return res
 
 
 # Write a function that translates a text from english to Pig Latin.
 # English is translated to Pig Latin by taking the first letter of every word,
 # moving it to the end of the word, and adding 'ay'.
 def pig_latin(text):
-    return
+    words=text.split()
+    string=str()
+    words_py=[]
+    for word in words:
+        a=list(word.lower())
+        b=a.pop(0)
+        word_py=''.join(a)+b+'ay'
+        words_py.append(word_py)
+    
+    delimiter=' '
+    string=delimiter.join(words_py)
+    return string.capitalize()
 
 
 # Write a function which prints numbers from 1 to 100,
