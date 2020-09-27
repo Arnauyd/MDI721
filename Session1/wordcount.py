@@ -30,10 +30,14 @@ Use str.split() (no arguments) to split on all whitespace.
 
 Workflow: don't build the whole program at once. Get it to an intermediate
 milestone and print your data structure and sys.exit(0).
-When that's working, try for the next milestone.
+When that's working, try for the next milestone. 
 
 Optional: define a helper function to avoid code duplication inside
 print_words() and print_top().
+
+To run teh file:
+    
+runfile('wordcount.py', args='--count alice.txt')
 
 """
 
@@ -45,52 +49,64 @@ import sys
 # and builds and returns a word/count dict for it.
 # Then print_words() and print_top() can just call the utility function.
 
-###
-#Version 1 pour compter les exos
-dico=[]
-for word in words:
-    if word in dico:
-        dico(word)+=1
-    else:
-        dico(word)=1
         
 #Version bis
-dico=defaultdico(int)
-dico['toto']
-c=counter()        
+#dico=defaultdico(int)
+#dico['toto']
+#c=counter()        
 
-
-def print_words(filename):
-    
+def count_words(filename):
     word_count={}
     input_file=open(filename,'r')
     for line in input_file:
         words=line.split()
         for word in words:
-            if word in word_count.keys:
+            word=word.lower()
+            if word in word_count:
                 word_count[word]+=1
             else:
-                word_count[]
+                word_count[word]=1
+    return word_count
+    
+#variante1: 
+def print_words(filename):
+    word_count=count_words(filename)
+    words_sorted=sorted(word_count.items(), key=lambda x:x[0])
+    for value in words_sorted:
+        print('{},{}'.format(value[0],value[1]))    
+    return None
+"""
+variante2 
+def print_words(filename):
+    word_count=count_words(filename)
+    for key in sorted(word_count.keys()):
+        print(key, word_count[key])   
+    return None
+"""
 
-
-
+def print_top(filename):
+    word_count=count_words(filename)
+    words_sorted=sorted(word_count.items(), key=lambda x:x[1],reverse=True)
+    for i in range(20):
+        print('{},{}'.format(words_sorted[i][0],words_sorted[i][1]))    
+    return None
 
 # This basic command line argument parsing code is provided and
 # calls the print_words() and print_top() functions which you must define.
 def main():
-  if len(sys.argv) != 3:
-    print ('usage: ./wordcount.py {--count | --topcount} file')
-    sys.exit(1)
-
-  option = sys.argv[1]
-  filename = sys.argv[2]
-  if option == '--count':
-    print_words(filename)
-  elif option == '--topcount':
-    print_top(filename)
-  else:
-    print 'unknown option: ' + option
-    sys.exit(1)
+    if len(sys.argv) != 3:
+        print ('usage: ./wordcount.py {--count | --topcount} file')
+        sys.exit(1)
+    
+    option = sys.argv[1]
+    filename = sys.argv[2]
+    if option == '--count':
+        print_words(filename)
+    elif option == '--topcount':
+        print_top(filename)
+    else:
+        print ('unknown option: ') + option
+        sys.exit(1)
 
 if __name__ == '__main__':
   main()
